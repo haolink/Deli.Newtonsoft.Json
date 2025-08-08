@@ -495,6 +495,7 @@ namespace Deli.Newtonsoft.Json.Serialization
 
                     _fullyTrusted = appDomain.IsHomogenous && appDomain.IsFullyTrusted;
 #else
+#if HAVE_CAS
                     try
                     {
                         new SecurityPermission(PermissionState.Unrestricted).Demand();
@@ -504,6 +505,9 @@ namespace Deli.Newtonsoft.Json.Serialization
                     {
                         _fullyTrusted = false;
                     }
+#else
+				_fullyTrusted = true;
+#endif
 #endif
                 }
 
